@@ -1,0 +1,248 @@
+@if (introVisible()) {
+  <div class="intro">
+    <button type="button" class="intro-skip" (click)="skipIntro()">تخطّي</button>
+    <div class="intro-ring ring-a"></div>
+    <div class="intro-ring ring-b"></div>
+    <div class="intro-core">
+      <img src="nuqoush-logo.webp" alt="شعار نقوش">
+      <p>by Aliaa Gamal &amp; Omina Gamal</p>
+      <span></span>
+      <small>فنٌّ يُصنع بالتفصيل</small>
+    </div>
+  </div>
+}
+
+<header class="header">
+  <a class="brand" href="#home" (click)="closeMenu()">
+    <img src="nuqoush-logo.webp" alt="نقوش">
+    <div>
+      <strong>نقوش</strong>
+      <span>by Aliaa &amp; Omina</span>
+    </div>
+  </a>
+
+  <nav class="nav">
+    <a href="#featured">مختارات</a>
+    <a href="#collection">المجموعة</a>
+    <a href="#story">عن نقوش</a>
+    <a href="#commission">طلبات خاصة</a>
+  </nav>
+
+  <a class="contact-cta" href="https://www.facebook.com/profile.php?id=61559981977979" target="_blank" rel="noreferrer">
+    تواصل معنا <span>↗</span>
+  </a>
+
+  <button type="button" class="menu" aria-label="فتح القائمة" (click)="toggleMenu()">
+    <span></span><span></span>
+  </button>
+
+  @if (menuOpen()) {
+    <nav class="mobile-nav">
+      <a href="#featured" (click)="closeMenu()">مختارات</a>
+      <a href="#collection" (click)="closeMenu()">المجموعة</a>
+      <a href="#story" (click)="closeMenu()">عن نقوش</a>
+      <a href="#commission" (click)="closeMenu()">طلبات خاصة</a>
+      <a href="https://www.facebook.com/profile.php?id=61559981977979" target="_blank" rel="noreferrer">Facebook ↗</a>
+    </nav>
+  }
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="hero-copy">
+      <p class="eyebrow">أعمال فنية أصلية · حرف · زخرفة · تفاصيل</p>
+      <h1>مساحةٌ<br>للجمال<br><em>الهادئ.</em></h1>
+      <p class="hero-lead">
+        «نقوش» براند فني أسسته <strong>Aliaa Gamal</strong> و <strong>Omina Gamal</strong>؛
+        يحتفي بالحرف العربي والزخارف الهندسية والنباتية في أعمال أصلية صُنعت لتعيش داخل المكان.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#collection">شاهد المجموعة <span>↓</span></a>
+        <a class="btn-link" href="#commission">اطلب عملاً خاصًا</a>
+      </div>
+      <div class="hero-proof">
+        <span>أعمال تم اقتناؤها بالفعل</span>
+        <i></i>
+        <span>إمكانية تنفيذ طلبات خاصة</span>
+      </div>
+    </div>
+
+    <div class="art-stage" aria-label="مختارات من أعمال نقوش">
+      <div class="stage-card main"><img src="art/art-03.webp" alt="عمل خط عربي من نقوش"></div>
+      <div class="stage-card side one"><img src="art/art-22.webp" alt="عمل نباتي من نقوش"></div>
+      <div class="stage-card side two"><img src="art/art-05.webp" alt="عمل معماري من نقوش"></div>
+      <div class="stage-mark">
+        <strong>نقوش</strong>
+        <span>ORIGINAL ART</span>
+      </div>
+    </div>
+
+    <div class="hero-number">01</div>
+  </section>
+
+  <section class="ticker">
+    <div class="ticker-track">
+      <span>حرف عربي</span><i>✦</i><span>زخارف هندسية</span><i>✦</i><span>أعمال أصلية</span><i>✦</i><span>تفاصيل نباتية</span><i>✦</i><span>طلبات خاصة</span><i>✦</i>
+      <span>حرف عربي</span><i>✦</i><span>زخارف هندسية</span><i>✦</i><span>أعمال أصلية</span><i>✦</i><span>تفاصيل نباتية</span><i>✦</i><span>طلبات خاصة</span><i>✦</i>
+    </div>
+  </section>
+
+  <section class="featured section" id="featured">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">01 · مختارات</p>
+        <h2>تفاصيل تُرى<br><em>على مهل.</em></h2>
+      </div>
+      <p>
+        بدل تكبير الصور الصغيرة بلا داعٍ، صُمم العرض هنا ليحافظ على جودة الأعمال
+        ويضع كل قطعة داخل مساحة هادئة قريبة من شكلها الحقيقي داخل إطار.
+      </p>
+    </div>
+
+    <div class="featured-grid">
+      @for (artwork of featured; track artwork.id; let i = $index) {
+        <button class="featured-card" type="button" [class.large]="i === 0 || i === 3" (click)="openArtwork(artwork)">
+          <div class="frame">
+            <img [src]="artwork.image" [alt]="'عمل من نقوش رقم ' + artwork.id">
+          </div>
+          <div class="featured-meta">
+            <span>{{ artwork.id.toString().padStart(2, '0') }}</span>
+            <div><strong>{{ artwork.caption }}</strong><small>{{ artwork.category }}</small></div>
+            <i>↗</i>
+          </div>
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="collection section" id="collection">
+    <div class="collection-title">
+      <p class="eyebrow">02 · المجموعة</p>
+      <h2>أرشيف<br><em>نقوش.</em></h2>
+      <p>الأعمال هنا تعرض بحجم يحافظ على تفاصيل الصور الأصلية. اضغط على أي قطعة لمشاهدتها بوضوح أكبر.</p>
+    </div>
+
+    <div class="filters">
+      @for (category of categories; track category) {
+        <button type="button" [class.active]="activeCategory() === category" (click)="setCategory(category)">
+          {{ category }}
+        </button>
+      }
+    </div>
+
+    <div class="gallery">
+      @for (artwork of filteredArtworks(); track artwork.id) {
+        <button class="gallery-item" type="button" (click)="openArtwork(artwork)">
+          <div class="gallery-frame">
+            <img [src]="artwork.image" [alt]="'عمل فني من نقوش رقم ' + artwork.id">
+          </div>
+          <div class="gallery-caption">
+            <span>{{ artwork.id.toString().padStart(2, '0') }}</span>
+            <strong>{{ artwork.caption }}</strong>
+            <small>{{ artwork.category }}</small>
+          </div>
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="proof section">
+    <div class="proof-copy">
+      <p class="eyebrow">03 · من الرسم إلى المكان</p>
+      <h2>أعمال وجدت<br>مكانها بالفعل.</h2>
+      <p>
+        نقوش ليست مجرد معرض رقمي؛ عدد من الأعمال تم اقتناؤه بالفعل.
+        لذلك نعرض الأرشيف كاملًا، ويمكن الاستفسار عن التوفر أو طلب عمل جديد مستوحى من نفس الروح.
+      </p>
+      <a href="https://www.facebook.com/profile.php?id=61559981977979" target="_blank" rel="noreferrer">اسأل عن التوفر ↗</a>
+    </div>
+
+    <div class="proof-collage">
+      <figure class="p1"><img src="art/art-12.webp" alt="أعمال نقوش داخل إطارات"></figure>
+      <figure class="p2"><img src="art/art-17.webp" alt="عمل نقوش داخل إطار"></figure>
+      <figure class="p3"><img src="art/art-21.webp" alt="عمل نقوش داخل إطار"></figure>
+    </div>
+  </section>
+
+  <section class="story section" id="story">
+    <div class="story-logo"><img src="nuqoush-logo.webp" alt="نقوش"></div>
+
+    <div class="story-copy">
+      <p class="eyebrow">04 · الحكاية</p>
+      <h2>نقوش<br>بروح اثنتين.</h2>
+      <p class="story-lead">
+        أسست <strong>Aliaa Gamal</strong> و <strong>Omina Gamal</strong> «نقوش» كمساحة
+        تحتفي بالتفاصيل والزخرفة والحرف العربي.
+      </p>
+      <p>
+        الهوية لا تعتمد على تكرار شكل واحد؛ بل على حس مشترك يظهر في التوازن،
+        والصبر على التفاصيل، واختيار الألوان، وتحويل كل تكوين إلى قطعة لها حضورها الخاص.
+      </p>
+
+      <div class="founders">
+        <article><span>Co-Founder</span><strong>Aliaa Gamal</strong></article>
+        <article><span>Co-Founder</span><strong>Omina Gamal</strong></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="commission section" id="commission">
+    <div class="commission-copy">
+      <p class="eyebrow">05 · قطعة تُصنع لك</p>
+      <h2>فكرتك.<br>ألوانك.<br><em>نقوشك.</em></h2>
+      <p>
+        يمكن أن يبدأ العمل باسم، عبارة، معنى، مناسبة، لون أو مساحة معينة في البيت.
+        يتم الاتفاق أولًا على الاتجاه العام ثم تبدأ رحلة تنفيذ قطعة أصلية خاصة بك.
+      </p>
+      <a class="btn-primary dark" href="https://www.facebook.com/profile.php?id=61559981977979" target="_blank" rel="noreferrer">
+        ابدأ طلبك <span>↗</span>
+      </a>
+    </div>
+
+    <div class="commission-steps">
+      <article><span>01</span><div><h3>الفكرة</h3><p>شارك الفكرة، المناسبة أو المعنى الذي تريد أن يبدأ منه العمل.</p></div></article>
+      <article><span>02</span><div><h3>الروح البصرية</h3><p>يتم تحديد الألوان والتكوين والمقاس بما يناسبك ويناسب المكان.</p></div></article>
+      <article><span>03</span><div><h3>التنفيذ</h3><p>تبدأ التفاصيل في الظهور تدريجيًا حتى يكتمل العمل بصورته الخاصة.</p></div></article>
+      <article><span>04</span><div><h3>الاقتناء</h3><p>قطعة أصلية صُممت لتعيش معك وتصبح جزءًا من المكان.</p></div></article>
+    </div>
+  </section>
+
+  <section class="contact section">
+    <div class="contact-copy">
+      <p class="eyebrow">06 · تواصل</p>
+      <h2>اسأل عن<br>القطعة التي <em>لفتتك.</em></h2>
+      <p>للاستفسار عن التوفر أو لتنفيذ عمل خاص، تواصل مع «نقوش» مباشرة عبر صفحة البراند.</p>
+    </div>
+
+    <a class="contact-card" href="https://www.facebook.com/profile.php?id=61559981977979" target="_blank" rel="noreferrer">
+      <span>Facebook</span>
+      <strong>تواصل مع نقوش</strong>
+      <i>↗</i>
+    </a>
+
+    <footer>
+      <div class="footer-brand"><strong>نقوش</strong><span>by Aliaa Gamal &amp; Omina Gamal</span></div>
+      <p>© {{ currentYear }} · جميع الحقوق محفوظة</p>
+      <a href="#home">إلى الأعلى ↑</a>
+    </footer>
+  </section>
+</main>
+
+@if (selectedArtwork(); as artwork) {
+  <div class="lightbox" role="dialog" aria-modal="true">
+    <button class="backdrop" type="button" aria-label="إغلاق" (click)="closeArtwork()"></button>
+    <div class="lightbox-card">
+      <button class="close" type="button" aria-label="إغلاق" (click)="closeArtwork()">×</button>
+      <div class="lightbox-stage">
+        <img [src]="artwork.image" [alt]="'عمل من نقوش رقم ' + artwork.id">
+      </div>
+      <div class="lightbox-copy">
+        <span>{{ artwork.id.toString().padStart(2, '0') }}</span>
+        <p class="eyebrow">{{ artwork.category }}</p>
+        <h2>{{ artwork.caption }}</h2>
+        <p>استفسر عن توفر القطعة أو اطلب عملاً جديدًا مستوحى من نفس الروح دون تكرار العمل حرفيًا.</p>
+        <a href="https://www.facebook.com/profile.php?id=61559981977979" target="_blank" rel="noreferrer">استفسر عن العمل ↗</a>
+      </div>
+    </div>
+  </div>
+}
